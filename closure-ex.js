@@ -13,6 +13,6 @@ function createUserRole(role) {
     }
 }
 const adminPermissions = createUserRole('admin');
-console.log(adminPermissions()); // 
+//console.log(adminPermissions()); // 
 // Output: All permissions granted
 
