@@ -91,22 +91,27 @@ let reducedValueArrowFn = arr1.reduce((acc, currVal) => acc + currVal , 10);
 
 // Pollyfill for reduce function
 
+let arrForReduce = [5,7,1,2,4,6];
 
-Array.prototype.MyCustomReduce = function(cb, initialValue) {
- let acc;
- let startIndex;
+//let reducedArr = arr.reduce((acc , value) => acc + value , 2 );
+
+Array.prototype.MyReduce = function(cb, initialValue) {
+    let acc;
+    let currArr = this;
+    let startIndex;
     if(initialValue !== undefined) {
-         acc = initialValue;
-         startIndex = 0
-
+        acc = initialValue;
+        startIndex = 0;
     } else {
-        acc = this[0];
-        startIndex = 1
+        acc = currArr[0];
+        startIndex = 1;
     }
-    for(let i = startIndex; i < this.length; i++) {
-        acc = cb(acc, this[i], i, this);
+    
+    for (let i = startIndex; i< currArr.length; i++) {
+        acc = cb(acc, currArr[i], i, currArr);
     }
     return acc;
 }
 
-console.log(arr1.MyCustomReduce((acc, currval) => acc + currval, 3))
+let reducedArr = arrForReduce.MyReduce((acc, val) => acc + val, 2);
+console.log(reducedArr);
