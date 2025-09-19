@@ -1,0 +1,80 @@
+// Normal in build bind functionn
+
+let name = {
+    firstname : "Karan",
+    lastname:"Sinha"
+}
+
+let printFullName = function(param,param2) {
+    return this.firstname + " " + this.lastname + " Loves " + param + " and " + param2;
+}
+
+let printFullNameBind = printFullName.bind(name);
+//console.log(printFullNameBind());
+
+// Normal in build bind function
+
+
+//Polyfill for bind function
+
+Function.prototype.myBind = function(...abc) {
+    const fn = this;  // <-- save original function
+    return function(...args) {
+        let context = abc[0];         // first arg is "thisArg"
+        let params = [...abc.slice(1), ...args]; // pre-applied + new args
+        return fn.apply(context, params);
+    }
+}
+
+
+printFullNameMyBind = printFullName.myBind(name,"Music");
+//console.log(printFullNameMyBind("Dancing", "Travelling"));
+
+// Map function
+let arr = [1,2,3,4,5];
+let mappedArr = arr.map(function(x) {
+    return x + 1;
+})
+
+let mappedArrWArrowFn = arr.map((x) => x * 2)
+
+// console.log(mappedArr);
+// console.log(mappedArrWArrowFn);
+
+// polyfill of map function
+
+Array.prototype.MyMap = function(cb) {
+    let result = [];
+    let currArr = this;
+    for (let i = 0; i<currArr.length; i++) {
+        result.push(cb(currArr[i], i, currArr));
+    }
+  return result;
+}
+
+let customMappedArr = arr.MyMap((x) => x + 10);
+// console.log(customMappedArr);
+
+// Reduce function
+let filteredValue = arr.filter(function(x) {
+    return x % 2 === 0;
+})
+
+// filter using arrow function
+let filteredValuedArrowFn = arr.filter((x) => x % 2 !== 0);
+// console.log(filteredValue);
+// console.log(filteredValuedArrowFn);
+
+// Polyfill of filter function
+Array.prototype.MyFilter = function(cb) {
+let resultOfFilter  = [];
+let currArrFilter = this;
+    for (let i = 0; i < currArrFilter.length; i++) {
+        if(cb(currArrFilter[i], i, currArrFilter)) {
+            resultOfFilter.push(currArrFilter[i]);
+        }
+    }
+    return resultOfFilter;
+}
+let arr1 = [1,2,3,4,5];
+console.log(arr1.MyFilter((x) => x > 2));

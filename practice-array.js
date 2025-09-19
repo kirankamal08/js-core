@@ -17,4 +17,26 @@ function reverseString(str) {
     }
     return reversed;
 }
-console.log(reverseString("hello")); // Output: "olleh"
+//console.log(reverseString("hello")); // Output: "olleh"
+
+if (!Array.prototype.myMap) {
+  Array.prototype.myMap = function(callback, thisArg) {
+    if (typeof callback !== "function") {
+      throw new TypeError(callback + " is not a function");
+    }
+
+    const result = [];
+    for (let i = 0; i < this.length; i++) {
+      // check for sparse arrays
+      if (i in this) {
+        result.push(callback.call(thisArg, this[i], i, this));
+      }
+    }
+    return result;
+  };
+}
+
+
+const nums = [1, 2, 3];
+const doubled = nums.myMap(num => num * 2);
+console.log(doubled); // [2, 4, 6]
