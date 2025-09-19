@@ -77,4 +77,36 @@ let currArrFilter = this;
     return resultOfFilter;
 }
 let arr1 = [1,2,3,4,5];
-console.log(arr1.MyFilter((x) => x > 2));
+// console.log(arr1.MyFilter((x) => x > 2));
+
+// Reduce Function implementation
+let reducedValue = arr1.reduce(function(acc, currVal) {
+   return acc + currVal;
+}, 5)
+
+//console.log(reducedValue)
+
+let reducedValueArrowFn = arr1.reduce((acc, currVal) => acc + currVal , 10);
+//console.log(reducedValueArrowFn)
+
+// Pollyfill for reduce function
+
+
+Array.prototype.MyCustomReduce = function(cb, initialValue) {
+ let acc;
+ let startIndex;
+    if(initialValue !== undefined) {
+         acc = initialValue;
+         startIndex = 0
+
+    } else {
+        acc = this[0];
+        startIndex = 1
+    }
+    for(let i = startIndex; i < this.length; i++) {
+        acc = cb(acc, this[i], i, this);
+    }
+    return acc;
+}
+
+console.log(arr1.MyCustomReduce((acc, currval) => acc + currval, 3))
