@@ -126,8 +126,8 @@ let person = {
     firstname: 'Rahul',
     lastname: 'Sharma'
  }
-  function greet (age,country) {
-        return "Hello " + this.firstname + " " + this.lastname + " is of age " + age + " from " + country;
+  function greet (age,country,state) {
+        return "Hello " + this.firstname + " " + this.lastname + " is of age " + age + " from " + state+ " " +country;
  }
 
 // console.log(person.greet('22'));
@@ -143,4 +143,42 @@ Function.prototype.MyCall = function(obj = {}, ...args) {
     obj.fn = this; // <!-- assigning function to object -> cosole it to see how it looks for more clarity how it will be assigned
    return obj.fn(...args);
 }
-console.log(greet.MyCall(person, 22 , "india"));
+//console.log(greet.MyCall(person, 22 , "india"));
+
+
+// Apply function - It is same as Bind function but just the difference that it takes array as arguements
+//console.log(greet.apply(person2, [23, 'USA']));
+
+// Now Writting Polyfill for Apply function
+Function.prototype.MyApply = function (obj = {}, args = []) {
+    if(typeof this !== 'function') {
+        throw new Error("Not a function")
+    }
+    if(!Array.isArray(...args)) {
+        throw new Error("Please pass in an array");
+    }
+    obj.fn = this;
+    return obj.fn(...args);
+}
+
+//console.log(greet.apply(person2, [23, 'USA']));
+
+/* Bind Function - It is same as call function but just the difference that it returns a function which can be called later invoked
+ insted of calling instantly */
+
+ let resultOfBind =  greet.bind(person2, 25, 'UK');
+ // console.log(resultOfBind());
+
+ // Polyfill for Bind function
+Function.prototype.MyBind = function(obj = {}, ...args) {
+    if(typeof this !== 'function') {
+        throw new Error("Not a Function")
+    }
+    fn = this;
+    return function(...args1){
+        return fn.apply(obj,[...args, ...args1])
+    }
+}
+
+let resultOfMyBind = greet.MyBind(person2, 25, 'UK');
+console.log(resultOfMyBind('Dehradoon'));
