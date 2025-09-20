@@ -114,4 +114,33 @@ Array.prototype.MyReduce = function(cb, initialValue) {
 }
 
 let reducedArr = arrForReduce.MyReduce((acc, val) => acc + val, 2);
-console.log(reducedArr);
+// console.log(reducedArr);
+
+// Usage of call function
+
+let person = {
+    firstname:'kiran',
+    lastname:'kamal',
+}
+ let person2 = {
+    firstname: 'Rahul',
+    lastname: 'Sharma'
+ }
+  function greet (age,country) {
+        return "Hello " + this.firstname + " " + this.lastname + " is of age " + age + " from " + country;
+ }
+
+// console.log(person.greet('22'));
+// console.log(person.greet.call(person2));
+//console.log(greet.call(person,'22'));
+
+
+// polyfill for call function
+Function.prototype.MyCall = function(obj = {}, ...args) {
+    if (typeof this !== 'function') {
+        throw new Error('Not a function');
+    }
+    obj.fn = this; // <!-- assigning function to object -> cosole it to see how it looks for more clarity how it will be assigned
+   return obj.fn(...args);
+}
+console.log(greet.MyCall(person, 22 , "india"));
