@@ -15,4 +15,21 @@ function reverseString(str) {
 }
 let str = "step pets";
 
-console.log(reverseString(str));
+// console.log(reverseString(str));
+
+// Count vowels in a string
+function countVowelsAndConsonants(string) {
+    let vowels = 'aeiouAEIOU';
+    let vowels_count = 0;
+    let consonant_count = 0;
+    for (let char of string) {
+        if (vowels.includes(char)) {
+            vowels_count++;
+        } else if (char.toLowerCase() >= 'a' && char.toLowerCase() <= 'z') {
+            consonant_count++;
+    }
+    }
+    return {vowels: vowels_count, consonants: consonant_count};
+}
+ let str_for_vowel_count = "hello world"
+console.log(countVowelsAndConsonants(str_for_vowel_count));
