@@ -181,4 +181,4 @@ Function.prototype.MyBind = function(obj = {}, ...args) {
 }
 
 let resultOfMyBind = greet.MyBind(person2, 25, 'UK');
-console.log(resultOfMyBind('Dehradoon'));
+// console.log(resultOfMyBind('Dehradoon'));
