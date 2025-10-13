@@ -40,3 +40,38 @@ if (!Array.prototype.myMap) {
 const nums = [1, 2, 3];
 const doubled = nums.myMap(num => num * 2);
 console.log(doubled); // [2, 4, 6]
+
+
+/// Removing duplicates from an array
+
+arr = [1,2,3,4,5,3,4];
+let duplicate = [];
+
+// for(let i = 0; i < arr.length; i++) {
+//     let dupFlag = false;
+//     for (let j = i+1; j< arr.length; j++) {
+//         if(arr[i] == arr[j]) {
+//           dupFlag = true
+//           duplicate.push(arr[j]);
+//         }
+//     }
+//  }
+//  console.log(duplicate);
+new_arr = [];
+for(let i = 0; i < arr.length; i++) {
+    let dupFlag = false;
+    for (let j = i+1; j< arr.length; j++) {
+        if(arr[i] == arr[j]) {
+           dupFlag = true
+           break;
+          // duplicate.push(arr[j]);
+        }
+    }
+    
+    if(dupFlag != true) {
+        new_arr.push(arr[i]);
+        dupFlag = true;
+    }
+ }
+ console.log(new_arr);
+ 
